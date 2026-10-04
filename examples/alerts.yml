@@ -1,0 +1,59 @@
+groups:
+  - name: tailscale-monitoring
+    interval: 1m
+    rules:
+      - alert: TailscaleDependencyFailed
+        expr: homelab_dependency_up{job="tailscale-monitoring"} == 0
+        for: 3m
+        labels: {severity: warning, service: tailscale-monitoring}
+        annotations:
+          summary: 'Dependency {{ $labels.check }} failed on {{ $labels.host }}'
+
+      - alert: TailscaleDaemonUnavailable
+        expr: homelab_tailscale_running{job="tailscale-monitoring"} == 0
+        for: 3m
+        labels: {severity: warning, service: tailscale-monitoring}
+        annotations:
+          summary: 'Tailscale is unavailable on {{ $labels.host }}'
+
+      - alert: TailscaleSSHDisabled
+        expr: homelab_tailscale_ssh_enabled{job="tailscale-monitoring"} == 0
+        for: 3m
+        labels: {severity: warning, service: tailscale-monitoring}
+        annotations:
+          summary: 'Tailscale SSH disabled on {{ $labels.host }}'
+
+      - alert: TailscaleRouteMissing
+        expr: homelab_subnet_route_advertised{job="tailscale-monitoring"} == 0
+        for: 3m
+        labels: {severity: warning, service: tailscale-monitoring}
+        annotations:
+          summary: 'Expected route {{ $labels.route }} not advertised by {{ $labels.host }}'
+
+      - alert: TailscaleResourceOffline
+        expr: homelab_tailnet_node_online{job="tailscale-monitoring"} == 0
+        for: 5m
+        labels: {severity: warning, service: tailscale-monitoring}
+        annotations:
+          summary: 'Resource {{ $labels.node }} appears offline from {{ $labels.host }}'
+
+      - alert: TailscaleTagDrift
+        expr: homelab_tailnet_tags_match{job="tailscale-monitoring"} == 0
+        for: 5m
+        labels: {severity: warning, service: tailscale-monitoring}
+        annotations:
+          summary: 'Resource {{ $labels.node }} differs from its configured tag baseline'
+
+      - alert: TailscaleCollectorUnreachable
+        expr: up{job="tailscale-monitoring"} == 0
+        for: 3m
+        labels: {severity: warning, service: tailscale-monitoring}
+        annotations:
+          summary: 'Collector {{ $labels.instance }} cannot be scraped'
+
+      - alert: TailscaleCollectorStale
+        expr: time() - homelab_monitor_last_run_timestamp_seconds{job="tailscale-monitoring"} > 180
+        for: 2m
+        labels: {severity: warning, service: tailscale-monitoring}
+        annotations:
+          summary: 'Collector {{ $labels.host }} stopped completing cycles'

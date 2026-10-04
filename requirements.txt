@@ -1,0 +1,2 @@
+# Collector and tests use only the Python standard library.
+# Documentation dependencies come from the shared MkDocs template.

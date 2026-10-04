@@ -1,0 +1,34 @@
+INHERIT: .mkdocs-shared/shared/mkdocs.base.yml
+
+site_name: Tailscale Monitoring
+site_description: A Tailscale status and dependency collector with a configurable Grafana dashboard.
+site_author: willtheorangeguy
+site_url: https://williamvdg.me/tailscale-monitoring/
+repo_url: https://github.com/willtheorangeguy/tailscale-monitoring
+repo_name: willtheorangeguy/tailscale-monitoring
+edit_uri: edit/main/docs/
+copyright: Copyright &copy; willtheorangeguy
+
+nav:
+  - Home: index.md
+  - Getting started: getting-started.md
+  - Installation: installation.md
+  - Configuration: configuration.md
+  - Architecture: architecture.md
+  - API: api.md
+  - Dashboard usage: usage.md
+  - Alerts: alerts.md
+  - Development:
+      - Testing: testing.md
+      - CI/CD: ci-cd.md
+      - FAQ: faq.md
+      - Troubleshooting: troubleshooting.md
+      - Development: development.md
+  - About:
+      - License: license.md
+      - Contributing: https://github.com/willtheorangeguy/.github/blob/main/CONTRIBUTING.md
+      - Code of Conduct: https://github.com/willtheorangeguy/.github/blob/main/CODE_OF_CONDUCT.md
+      - Security: https://github.com/willtheorangeguy/.github/blob/main/SECURITY.md
+
+exclude_docs: |
+  docs.instructions.md

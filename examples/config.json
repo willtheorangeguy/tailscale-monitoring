@@ -1,0 +1,28 @@
+{
+  "host": "server-1",
+  "bind": "127.0.0.1",
+  "port": 9487,
+  "allowed_clients": [
+    "127.0.0.1"
+  ],
+  "state_directory": "./state",
+  "poll_interval": 30,
+  "monitor_ssh": true,
+  "subnet_route": null,
+  "nodes": {},
+  "checks": [
+    {
+      "id": "example_https",
+      "type": "http",
+      "url": "https://example.com/",
+      "period": 60,
+      "timeout": 10
+    },
+    {
+      "id": "example_dns",
+      "type": "dns",
+      "name": "example.com",
+      "period": 60
+    }
+  ]
+}

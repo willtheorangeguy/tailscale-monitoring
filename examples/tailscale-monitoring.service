@@ -1,0 +1,21 @@
+[Unit]
+Description=Tailscale status and service dependency collector
+Wants=network-online.target
+After=network-online.target tailscaled.service
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/python3 /opt/tailscale-monitoring/tailscale_monitor.py --config /etc/tailscale-monitoring/config.json
+WorkingDirectory=/var/lib/tailscale-monitoring
+StateDirectory=tailscale-monitoring
+Restart=on-failure
+RestartSec=10
+User=root
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+UMask=0077
+
+[Install]
+WantedBy=multi-user.target

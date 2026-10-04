@@ -1,0 +1,10 @@
+# Merge these entries into an existing configuration rather than replacing it.
+scrape_configs:
+  - job_name: tailscale-monitoring
+    scrape_interval: 30s
+    static_configs:
+      - targets: ["127.0.0.1:9487"]
+
+# Optional: use an absolute path to the supplied alerts file.
+# rule_files:
+#   - /etc/prometheus/tailscale-monitoring-alerts.yml
